@@ -12,6 +12,10 @@ export class BaseLevel extends Phaser.Scene
     {
         super({key: levelKey});
         this.PhaserGame = phaserGame;
+
+        this.lag = 0;
+        this.fps = 60; //physics checks 60 times/frame
+        this.frameduration = 1000 / this.fps
     }
 
     create()
@@ -39,6 +43,10 @@ export class BaseLevel extends Phaser.Scene
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ];
 
+        //this.matter.set60Hz();
+        this.matter.world.getDelta = () => { return this.frameduration; };
+        this.matter.world.autoUpdate = true;
+
         this.map = new TileMap(this, 32, 32);
 
         this.images = [];
@@ -62,8 +70,7 @@ export class BaseLevel extends Phaser.Scene
         }).setScale(2.25).setInteractive().setScrollFactor(0,0);
     }
 
-    update()
-    {
+    phys(currentframe) {
         //Update platforms
         for (let i = 0; i < this.map.platforms.list.length; ++i)
         {
@@ -88,8 +95,23 @@ export class BaseLevel extends Phaser.Scene
             this.statics.list[i].update();
         }
 
+        //Update player movement
+        this.player.updateMovement();
+    }
+
+    render() {
         //Update player
         this.player.update();
+    }
+
+    update(timestamp, elapsed) {
+        console.log(elapsed, this.lag, this.frameduration);
+        this.lag += elapsed;
+        while(this.lag >= this.frameduration) {
+            this.phys(this.frameduration);
+            this.lag -= this.frameduration;
+        }
+        this.render();
     }
 
     cameraFollowEntity(entity)

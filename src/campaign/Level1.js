@@ -57,9 +57,17 @@ export class Level1 extends BaseLevel
         this.dialogTree.playSequence(sequence1);
     }
 
-    update()
+    phys(currentframe) {
+        super.phys(currentframe);
+    }
+
+    render() {
+        super.render();
+    }
+
+    update(timestamp, elapsed)
     {
-        super.update();
+        super.update(timestamp, elapsed);
         
         if (this.enemies.list.length == 0)
         {

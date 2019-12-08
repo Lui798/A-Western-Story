@@ -95,17 +95,20 @@ export class Player extends Phaser.Physics.Matter.Sprite
 
     update()
     {
-        if (this.status.allowMove)
-        {
-            //Update Controls/Cursors
-            this.controller.update();
-        }
-
         this.controller.updateGun();
         
         if (this.y > this.scene.map.level.length * 32)
         {
             this.death();
+        }
+    }
+
+    updateMovement()
+    {
+        if (this.status.allowMove)
+        {
+            //Update Controls/Cursors
+            this.controller.update();
         }
     }
 
