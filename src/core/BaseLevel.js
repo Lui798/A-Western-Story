@@ -105,9 +105,10 @@ export class BaseLevel extends Phaser.Scene
     }
 
     update(timestamp, elapsed) {
-        console.log(elapsed, this.lag, this.frameduration);
+        console.log("UPDATE", elapsed, this.lag, this.frameduration);
         this.lag += elapsed;
         while(this.lag >= this.frameduration) {
+            console.log("WHILE", elapsed, this.lag, this.frameduration);
             this.phys(this.frameduration);
             this.lag -= this.frameduration;
         }
