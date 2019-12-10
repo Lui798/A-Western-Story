@@ -57,7 +57,7 @@ export class BaseLevel extends Phaser.Scene
 
         let pauseButton = new Button(this, 1150, 45, 'pauseButton', () => {
             this.scene.pause(this.scene.key);
-            this.scene.setVisible(false, this.scene.key);
+            //this.scene.setVisible(false, this.scene.key);
             this.scene.launch('pause-scene', {scene: this.scene.key});
         }).setScale(2.25).setInteractive().setScrollFactor(0,0);
     }

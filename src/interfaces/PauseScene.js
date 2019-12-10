@@ -17,7 +17,8 @@ export class PauseScene extends Phaser.Scene {
 
     create()
     {
-        this.pauseScreen = this.add.image(600, 300, 'death').setDisplaySize(1200, 600);
+        this.scene.manager.moveAbove(this.previousScene, this.scene.key);
+        this.pauseScreen = this.add.image(600, 300, 'black').setDisplaySize(1200, 600).setAlpha(0.50);
         this.unPauseBtn = new Button(this, 600, 250, 'unpauseButton', () => {
             if (this.previousScene !== 'level-arena') {
                 this.scene.setVisible(true, this.previousScene);

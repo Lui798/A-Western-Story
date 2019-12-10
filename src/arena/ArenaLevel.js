@@ -55,10 +55,10 @@ export class ArenaLevel extends BaseLevel
 
         //  Pause button
         this.pauseBtn = new Button(this, 1150, 45, 'pauseButton', () => {
-            this.scene.setVisible(false, 'level-arena');
+            //this.scene.setVisible(false, 'level-arena');
             this.player.stageMode();
             this.player.name.destroy();
-            this.connection.death();
+            //this.connection.death();
             this.scene.launch('pause-scene', {
                 scene: this.scene.key,
                 player: this.player,
